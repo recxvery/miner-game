@@ -1,0 +1,6 @@
+./errors.go
+./game.go
+./gameinfo.go
+./info.go
+./mine.go
+./miners.go
