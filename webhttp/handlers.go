@@ -95,7 +95,7 @@ func (h *HTTPHandlers) HandleHireMiner(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, err := w.Write(data); err != nil {
-		panic(err)
+		errorHandle(w, err)
 	}
 }
 
@@ -134,7 +134,7 @@ func (h *HTTPHandlers) HandleGetWorkingMiners(w http.ResponseWriter, r *http.Req
 
 	jsonData, err := json.MarshalIndent(outputMiners, "", "    ")
 	if err != nil {
-		panic(err)
+		errorHandle(w, err)
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -172,7 +172,7 @@ func (h *HTTPHandlers) HandleBuyEquipment(w http.ResponseWriter, r *http.Request
 
 	jsonData, err := json.MarshalIndent(changedTool, "", "		")
 	if err != nil {
-		panic(err)
+		errorHandle(w, err)
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -285,6 +285,22 @@ func (h *HTTPHandlers) HandleStopGame(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data, err := json.MarshalIndent(mine, "", "		")
+	if err != nil {
+		errorHandle(w, err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write(data); err != nil {
+		log.Println(err)
+
+		return
+	}
+}
+
+func (h *HTTPHandlers) HandleGetMinerPrices(w http.ResponseWriter, r *http.Request) {
+	prices := output.MinersPricesDTO()
+
+	data, err := json.MarshalIndent(prices, "", "	 ")
 	if err != nil {
 		errorHandle(w, err)
 	}

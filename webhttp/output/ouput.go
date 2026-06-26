@@ -74,3 +74,13 @@ func NewEquipmentDTO(m *miner.Mine) map[string]equipment.Equip {
 
 	return tmp
 }
+
+func MinersPricesDTO() map[string]miner.MinerPrice {
+	tmp := map[string]miner.MinerPrice{
+		"Normal Miner" : miner.NormalMiner,
+		"Little Miner" : miner.LittleMiner,
+		"Strong Miner" : miner.StrongMiner, 
+	}
+
+	return tmp
+}
